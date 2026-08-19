@@ -1,0 +1,81 @@
+site_name: 개발 지식 저장소
+site_description: 개인 개발 Knowledge Base
+site_url: ""
+
+theme:
+  name: material
+  language: ko
+  features:
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: 다크 모드로 전환
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: 라이트 모드로 전환
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Home: index.md
+  - C++:
+      - cpp/index.md
+      - MFC:
+          - cpp/mfc/index.md
+          - DLL:
+              - cpp/mfc/dll/index.md
+              - MFC DLL ABI 호환성: cpp/mfc/dll/abi-compatibility.md
+          - UI: cpp/mfc/ui/index.md
+          - Threading: cpp/mfc/threading/index.md
+  - Windows:
+      - windows/index.md
+      - BitLocker: windows/bitlocker/index.md
+      - VHDX: windows/vhdx/index.md
+      - Troubleshooting: windows/troubleshooting/index.md
+  - Automation:
+      - automation/index.md
+      - EtherCAT:
+          - automation/ethercat/index.md
+          - SOEM: automation/ethercat/soem.md
+          - CiA 402: automation/ethercat/cia402.md
+      - Motion: automation/motion/index.md
+      - Vision: automation/vision/index.md
+  - Architecture: architecture/index.md
+  - Troubleshooting: troubleshooting/index.md
