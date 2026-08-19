@@ -136,10 +136,36 @@ Multi-turn clear는 별도 기능이며, A6B 사양상 absolute mode의 첫 기�
 
 MINAS A6B는 hm(Homing) mode를 지원한다. Homing 완료 후 감지한 index-pulse 위치의 position information은 `607Ch` 값과 같게 설정된다. 또한 homing을 수행하면 위치 정보가 reset되므로 이전 좌표계로 얻은 데이터(예: touch-probe 위치)는 다시 취득해야 한다. 이는 단순히 `607Ch` 값을 편집·저장하는 현장 절차와 구별해야 한다. [SX-DSV03242 R15.0, §6-6-5 및 §6-9-4, pp. 137, 273–274](https://mediap.industry.panasonic.eu/assets/custom-upload/Factory%20%26%20Automation/Industrial%20Motors/Manuals/mn_minas_a6b_ethercat_communication_specification_pid_en.pdf)
 
+## PANATERM으로 현재 위치를 Home으로 설정하기
+
+PANATERM의 **Object Editor**에는 `Set Home` 기능이 있다. 이는 축을 home sensor까지 자동 이동시키는 hm(Homing) 모션이 아니라, 현재 표시 좌표를 기준으로 Home offset을 재계산하는 기능이다. PANATERM 공식 매뉴얼은 `Set Home`이 다음 계산 결과를 `607Ch:00h`에 쓰는 것으로 정의한다.
+
+```text
+New 607Ch = Current 607Ch - Current 6064h
+```
+
+공식 A6B 식 `6064h = InternalPosition + 607Ch`에 대입하면, 다음 위치 정보 반영 시점 이후 현재 물리 위치의 `6064h`가 `0`이 된다. 즉 **현재 위치를 표시 좌표 0으로 맞추기 위한 Home offset 설정**이다. [PANATERM Ver.6.0 Operation Manual Rev. 3.15, Object Editor, p. 175](https://mediap.industry.panasonic.eu/assets/download-files/import/mn_minas_a6_panaterm_operation_pidsx_en.pdf)
+
+### 수행 절차
+
+1. 축을 의도한 기준 위치에 안전하게 정지시킨다. PANATERM을 통한 직접 운전·설정은 기계가 움직일 수 있으므로, 충돌 영역과 인터록을 먼저 확인한다.
+2. PANATERM에서 대상 A6B 드라이버와 통신을 연결한 뒤 **기타 → 객체 편집기(Object Editor)** 를 연다.
+3. `Condition monitor`의 `ESM Condition`이 `INIT`인지 확인한다. PANATERM 매뉴얼은 통신 연결 상태에서 `INIT`일 때 driver object의 편집·전송이 가능하고, 그 외 상태에서는 불가능하다고 설명한다.
+4. Object Editor 도구 모음의 **Set Home**을 실행한다. 이 동작은 위 식으로 새 `607Ch` 값을 계산해 설정한다.
+5. 변경된 `607Ch:00h Home offset` 값을 확인하고, 유지가 필요하면 **EEPROM**을 실행해 드라이버 EEPROM에 기록한다.
+6. A6B의 `607Ch` 반영 시점(예: control power ON 또는 EtherCAT `Init → PreOP`)에 맞춰 위치 정보가 다시 계산된 뒤 `6064h Position actual value`가 의도한 `0`인지 확인한다.
+
+!!! warning "Set Home과 Homing을 혼동하지 말 것"
+    `Set Home`은 현재 위치에서 Home offset을 계산하는 PANATERM 기능이다. home sensor 또는 index pulse를 탐색하는 hm(Homing) 모션을 실행하지 않는다. 실제 기계 원점 탐색이 필요하면 제어기에서 A6B의 hm mode와 대상 Homing method를 별도로 설정·실행한다.
+
+!!! note "Servo 상태"
+    PANATERM Object Editor 매뉴얼은 `Set Home`의 Servo ON/OFF 필수 조건을 명시하지 않는다. 다만 현재 위치의 기준을 바꾸는 작업이므로, 축 정지와 현장 안전 상태를 확인한 후 실행한다.
+
 ## 공식 자료
 
 - Panasonic Industry, *Technical Reference – EtherCAT Communication Specification – For MINAS A6B series*, **SX-DSV03242 R15.0**, 2025-01-31, §5-6, §6-6-5, §6-9-4.
 - Panasonic Industry, *Technical Reference – Functional Specification – MINAS-A6B series*, **SX-DSV03241 R10.0**, 객체 편집기 백업 설명(p. 49).
+- Panasonic Industry, *PANATERM Ver.6.0 Operation Manual*, **Rev. 3.15**, Object Editor의 `Set Home` 및 ESM Condition 설명(pp. 175–176).
 
 ## 추가 확인이 필요한 사항
 
