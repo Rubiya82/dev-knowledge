@@ -76,6 +76,7 @@ nav:
           - SOEM: automation/ethercat/soem.md
           - CiA 402: automation/ethercat/cia402.md
       - Motion: automation/motion/index.md
+      - Panasonic MINAS A6B Absolute Home Offset: automation/motion/panasonic-a6b-absolute-home-offset.md
       - Vision: automation/vision/index.md
   - Architecture: architecture/index.md
   - Troubleshooting: troubleshooting/index.md
