@@ -80,6 +80,9 @@ nav:
           - CiA 402: automation/ethercat/cia402.md
       - Motion: automation/motion/index.md
       - Panasonic MINAS A6B Absolute Home Offset: automation/motion/panasonic-a6b-absolute-home-offset.md
+      - Panasonic MINAS A6B Homing Mode (hm): automation/motion/panasonic-a6b-homing-mode.md
       - Vision: automation/vision/index.md
-  - Architecture: architecture/index.md
+  - Architecture:
+      - architecture/index.md
+      - Mechanical · Control · Process 3계층 분리: architecture/mechanical-control-process-layers.md
   - Troubleshooting: troubleshooting/index.md
