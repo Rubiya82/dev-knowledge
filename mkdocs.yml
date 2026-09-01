@@ -72,6 +72,9 @@ nav:
       - BitLocker: windows/bitlocker/index.md
       - VHDX: windows/vhdx/index.md
       - Troubleshooting: windows/troubleshooting/index.md
+  - ESP32:
+      - esp32/index.md
+      - ESP32-P4 ESP-IDF v5.5.5 설치: esp32/esp32-p4-esp-idf-v5.5.5-install.md
   - Automation:
       - automation/index.md
       - EtherCAT:
@@ -85,4 +88,5 @@ nav:
   - Architecture:
       - architecture/index.md
       - Mechanical · Control · Process 3계층 분리: architecture/mechanical-control-process-layers.md
+      - Process Step 상태 기계의 switch 유지보수성 개선: architecture/process-step-state-machine-maintainability.md
   - Troubleshooting: troubleshooting/index.md

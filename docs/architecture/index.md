@@ -6,3 +6,4 @@
 ## 문서
 
 - [Mechanical · Control · Process 3계층 분리](mechanical-control-process-layers.md): 자동화 장비의 계층 책임, 알람 경계 및 모션 포함 공급 동작 패턴
+- [Process Step 상태 기계의 switch 유지보수성 개선](process-step-state-machine-maintainability.md): 큰 `doRunStep()`을 안전하게 분해해 정적 분석 복잡도와 변경 범위를 낮추는 기준
