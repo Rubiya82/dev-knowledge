@@ -72,6 +72,9 @@ nav:
       - BitLocker: windows/bitlocker/index.md
       - VHDX: windows/vhdx/index.md
       - Troubleshooting: windows/troubleshooting/index.md
+  - ESP32:
+      - esp32/index.md
+      - ESP32-P4 ESP-IDF v5.5.5 설치: esp32/esp32-p4-esp-idf-v5.5.5-install.md
   - Automation:
       - automation/index.md
       - EtherCAT:
